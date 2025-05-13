@@ -1,0 +1,816 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbfoodpandaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblDeliveries">
+          <Key>
+            <PropertyRef Name="DeliveryID" />
+          </Key>
+          <Property Name="DeliveryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="DeliveryStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeliveryTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblFood">
+          <Key>
+            <PropertyRef Name="FoodID" />
+          </Key>
+          <Property Name="FoodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestaurantID" Type="int" Nullable="false" />
+          <Property Name="FoodName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblInventory">
+          <Key>
+            <PropertyRef Name="InventoryID" />
+          </Key>
+          <Property Name="InventoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodID" Type="int" Nullable="false" />
+          <Property Name="StockQuantity" Type="int" Nullable="false" />
+          <Property Name="LastUpdated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblOrderFood">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="FoodID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="FoodID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblOrders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RiderID" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeliveryAddress" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPaymentMethodTypes">
+          <Key>
+            <PropertyRef Name="PaymentMethodID" />
+          </Key>
+          <Property Name="PaymentMethodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MethodName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPayments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="PaymentMethodID" Type="int" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRestaurants">
+          <Key>
+            <PropertyRef Name="RestaurantID" />
+          </Key>
+          <Property Name="RestaurantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestaurantName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblReviews">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="FoodID" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="ReviewDate" Type="datetime" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tblRiders">
+          <Key>
+            <PropertyRef Name="RiderID" />
+          </Key>
+          <Property Name="RiderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RiderName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserNIC" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address_HouseNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address_City" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address_PostalCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Deliveries_Orders">
+          <End Role="tblOrders" Type="Self.tblOrders" Multiplicity="1" />
+          <End Role="tblDeliveries" Type="Self.tblDeliveries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tblDeliveries">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Food_Restaurant">
+          <End Role="tblRestaurants" Type="Self.tblRestaurants" Multiplicity="1" />
+          <End Role="tblFood" Type="Self.tblFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRestaurants">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="tblFood">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Food">
+          <End Role="tblFood" Type="Self.tblFood" Multiplicity="1" />
+          <End Role="tblInventory" Type="Self.tblInventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFood">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="tblInventory">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderFood_Food">
+          <End Role="tblFood" Type="Self.tblFood" Multiplicity="1" />
+          <End Role="tblOrderFood" Type="Self.tblOrderFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFood">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="tblOrderFood">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderFood_Orders">
+          <End Role="tblOrders" Type="Self.tblOrders" Multiplicity="1" />
+          <End Role="tblOrderFood" Type="Self.tblOrderFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tblOrderFood">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Riders">
+          <End Role="tblRiders" Type="Self.tblRiders" Multiplicity="0..1" />
+          <End Role="tblOrders" Type="Self.tblOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRiders">
+              <PropertyRef Name="RiderID" />
+            </Principal>
+            <Dependent Role="tblOrders">
+              <PropertyRef Name="RiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="tblOrders" Type="Self.tblOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblOrders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_Method">
+          <End Role="tblPaymentMethodTypes" Type="Self.tblPaymentMethodTypes" Multiplicity="1" />
+          <End Role="tblPayments" Type="Self.tblPayments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPaymentMethodTypes">
+              <PropertyRef Name="PaymentMethodID" />
+            </Principal>
+            <Dependent Role="tblPayments">
+              <PropertyRef Name="PaymentMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_Orders">
+          <End Role="tblOrders" Type="Self.tblOrders" Multiplicity="1" />
+          <End Role="tblPayments" Type="Self.tblPayments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tblPayments">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_Users">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="tblPayments" Type="Self.tblPayments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblPayments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Food">
+          <End Role="tblFood" Type="Self.tblFood" Multiplicity="1" />
+          <End Role="tblReviews" Type="Self.tblReviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFood">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="tblReviews">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Users">
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="1" />
+          <End Role="tblReviews" Type="Self.tblReviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblReviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbfoodpandaModelStoreContainer">
+          <EntitySet Name="tblDeliveries" EntityType="Self.tblDeliveries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFood" EntityType="Self.tblFood" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblInventory" EntityType="Self.tblInventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrderFood" EntityType="Self.tblOrderFood" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrders" EntityType="Self.tblOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPaymentMethodTypes" EntityType="Self.tblPaymentMethodTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPayments" EntityType="Self.tblPayments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRestaurants" EntityType="Self.tblRestaurants" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblReviews" EntityType="Self.tblReviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRiders" EntityType="Self.tblRiders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Deliveries_Orders" Association="Self.FK_Deliveries_Orders">
+            <End Role="tblOrders" EntitySet="tblOrders" />
+            <End Role="tblDeliveries" EntitySet="tblDeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Food_Restaurant" Association="Self.FK_Food_Restaurant">
+            <End Role="tblRestaurants" EntitySet="tblRestaurants" />
+            <End Role="tblFood" EntitySet="tblFood" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Food" Association="Self.FK_Inventory_Food">
+            <End Role="tblFood" EntitySet="tblFood" />
+            <End Role="tblInventory" EntitySet="tblInventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderFood_Food" Association="Self.FK_OrderFood_Food">
+            <End Role="tblFood" EntitySet="tblFood" />
+            <End Role="tblOrderFood" EntitySet="tblOrderFood" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderFood_Orders" Association="Self.FK_OrderFood_Orders">
+            <End Role="tblOrders" EntitySet="tblOrders" />
+            <End Role="tblOrderFood" EntitySet="tblOrderFood" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Riders" Association="Self.FK_Orders_Riders">
+            <End Role="tblRiders" EntitySet="tblRiders" />
+            <End Role="tblOrders" EntitySet="tblOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblOrders" EntitySet="tblOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_Method" Association="Self.FK_Payments_Method">
+            <End Role="tblPaymentMethodTypes" EntitySet="tblPaymentMethodTypes" />
+            <End Role="tblPayments" EntitySet="tblPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_Orders" Association="Self.FK_Payments_Orders">
+            <End Role="tblOrders" EntitySet="tblOrders" />
+            <End Role="tblPayments" EntitySet="tblPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_Users" Association="Self.FK_Payments_Users">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblPayments" EntitySet="tblPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Food" Association="Self.FK_Reviews_Food">
+            <End Role="tblFood" EntitySet="tblFood" />
+            <End Role="tblReviews" EntitySet="tblReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblReviews" EntitySet="tblReviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbfoodpandaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblDelivery">
+          <Key>
+            <PropertyRef Name="DeliveryID" />
+          </Key>
+          <Property Name="DeliveryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeliveryTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tblOrder" Relationship="Self.FK_Deliveries_Orders" FromRole="tblDeliveries" ToRole="tblOrders" />
+        </EntityType>
+        <EntityType Name="tblFood">
+          <Key>
+            <PropertyRef Name="FoodID" />
+          </Key>
+          <Property Name="FoodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestaurantID" Type="Int32" Nullable="false" />
+          <Property Name="FoodName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblRestaurant" Relationship="Self.FK_Food_Restaurant" FromRole="tblFood" ToRole="tblRestaurants" />
+          <NavigationProperty Name="tblInventories" Relationship="Self.FK_Inventory_Food" FromRole="tblFood" ToRole="tblInventory" />
+          <NavigationProperty Name="tblOrderFoods" Relationship="Self.FK_OrderFood_Food" FromRole="tblFood" ToRole="tblOrderFood" />
+          <NavigationProperty Name="tblReviews" Relationship="Self.FK_Reviews_Food" FromRole="tblFood" ToRole="tblReviews" />
+        </EntityType>
+        <EntityType Name="tblInventory">
+          <Key>
+            <PropertyRef Name="InventoryID" />
+          </Key>
+          <Property Name="InventoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodID" Type="Int32" Nullable="false" />
+          <Property Name="StockQuantity" Type="Int32" Nullable="false" />
+          <Property Name="LastUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tblFood" Relationship="Self.FK_Inventory_Food" FromRole="tblInventory" ToRole="tblFood" />
+        </EntityType>
+        <EntityType Name="tblOrderFood">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="FoodID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="FoodID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFood" Relationship="Self.FK_OrderFood_Food" FromRole="tblOrderFood" ToRole="tblFood" />
+          <NavigationProperty Name="tblOrder" Relationship="Self.FK_OrderFood_Orders" FromRole="tblOrderFood" ToRole="tblOrders" />
+        </EntityType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RiderID" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DeliveryAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tblDeliveries" Relationship="Self.FK_Deliveries_Orders" FromRole="tblOrders" ToRole="tblDeliveries" />
+          <NavigationProperty Name="tblOrderFoods" Relationship="Self.FK_OrderFood_Orders" FromRole="tblOrders" ToRole="tblOrderFood" />
+          <NavigationProperty Name="tblRider" Relationship="Self.FK_Orders_Riders" FromRole="tblOrders" ToRole="tblRiders" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_Orders_Users" FromRole="tblOrders" ToRole="tblUsers" />
+          <NavigationProperty Name="tblPayments" Relationship="Self.FK_Payments_Orders" FromRole="tblOrders" ToRole="tblPayments" />
+        </EntityType>
+        <EntityType Name="tblPaymentMethodType">
+          <Key>
+            <PropertyRef Name="PaymentMethodID" />
+          </Key>
+          <Property Name="PaymentMethodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MethodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblPayments" Relationship="Self.FK_Payments_Method" FromRole="tblPaymentMethodTypes" ToRole="tblPayments" />
+        </EntityType>
+        <EntityType Name="tblPayment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMethodID" Type="Int32" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="tblOrder" Relationship="Self.FK_Payments_Orders" FromRole="tblPayments" ToRole="tblOrders" />
+          <NavigationProperty Name="tblPaymentMethodType" Relationship="Self.FK_Payments_Method" FromRole="tblPayments" ToRole="tblPaymentMethodTypes" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_Payments_Users" FromRole="tblPayments" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="tblRestaurant">
+          <Key>
+            <PropertyRef Name="RestaurantID" />
+          </Key>
+          <Property Name="RestaurantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestaurantName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblFoods" Relationship="Self.FK_Food_Restaurant" FromRole="tblRestaurants" ToRole="tblFood" />
+        </EntityType>
+        <EntityType Name="tblReview">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="FoodID" Type="Int32" Nullable="false" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="ReviewDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFood" Relationship="Self.FK_Reviews_Food" FromRole="tblReviews" ToRole="tblFood" />
+          <NavigationProperty Name="tblUser" Relationship="Self.FK_Reviews_Users" FromRole="tblReviews" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="tblRider">
+          <Key>
+            <PropertyRef Name="RiderID" />
+          </Key>
+          <Property Name="RiderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RiderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblOrders" Relationship="Self.FK_Orders_Riders" FromRole="tblRiders" ToRole="tblOrders" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserNIC" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address_HouseNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address_City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address_PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblOrders" Relationship="Self.FK_Orders_Users" FromRole="tblUsers" ToRole="tblOrders" />
+          <NavigationProperty Name="tblPayments" Relationship="Self.FK_Payments_Users" FromRole="tblUsers" ToRole="tblPayments" />
+          <NavigationProperty Name="tblReviews" Relationship="Self.FK_Reviews_Users" FromRole="tblUsers" ToRole="tblReviews" />
+        </EntityType>
+        <Association Name="FK_Deliveries_Orders">
+          <End Role="tblOrders" Type="Self.tblOrder" Multiplicity="1" />
+          <End Role="tblDeliveries" Type="Self.tblDelivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tblDeliveries">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Food_Restaurant">
+          <End Role="tblRestaurants" Type="Self.tblRestaurant" Multiplicity="1" />
+          <End Role="tblFood" Type="Self.tblFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRestaurants">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="tblFood">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Food">
+          <End Role="tblFood" Type="Self.tblFood" Multiplicity="1" />
+          <End Role="tblInventory" Type="Self.tblInventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFood">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="tblInventory">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderFood_Food">
+          <End Role="tblFood" Type="Self.tblFood" Multiplicity="1" />
+          <End Role="tblOrderFood" Type="Self.tblOrderFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFood">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="tblOrderFood">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Food">
+          <End Role="tblFood" Type="Self.tblFood" Multiplicity="1" />
+          <End Role="tblReviews" Type="Self.tblReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFood">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="tblReviews">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderFood_Orders">
+          <End Role="tblOrders" Type="Self.tblOrder" Multiplicity="1" />
+          <End Role="tblOrderFood" Type="Self.tblOrderFood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tblOrderFood">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Riders">
+          <End Role="tblRiders" Type="Self.tblRider" Multiplicity="0..1" />
+          <End Role="tblOrders" Type="Self.tblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRiders">
+              <PropertyRef Name="RiderID" />
+            </Principal>
+            <Dependent Role="tblOrders">
+              <PropertyRef Name="RiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblOrders" Type="Self.tblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblOrders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_Orders">
+          <End Role="tblOrders" Type="Self.tblOrder" Multiplicity="1" />
+          <End Role="tblPayments" Type="Self.tblPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tblPayments">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_Method">
+          <End Role="tblPaymentMethodTypes" Type="Self.tblPaymentMethodType" Multiplicity="1" />
+          <End Role="tblPayments" Type="Self.tblPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPaymentMethodTypes">
+              <PropertyRef Name="PaymentMethodID" />
+            </Principal>
+            <Dependent Role="tblPayments">
+              <PropertyRef Name="PaymentMethodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_Users">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblPayments" Type="Self.tblPayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblPayments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Users">
+          <End Role="tblUsers" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblReviews" Type="Self.tblReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblReviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbfoodpandaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblDeliveries" EntityType="Self.tblDelivery" />
+          <EntitySet Name="tblFoods" EntityType="Self.tblFood" />
+          <EntitySet Name="tblInventories" EntityType="Self.tblInventory" />
+          <EntitySet Name="tblOrderFoods" EntityType="Self.tblOrderFood" />
+          <EntitySet Name="tblOrders" EntityType="Self.tblOrder" />
+          <EntitySet Name="tblPaymentMethodTypes" EntityType="Self.tblPaymentMethodType" />
+          <EntitySet Name="tblPayments" EntityType="Self.tblPayment" />
+          <EntitySet Name="tblRestaurants" EntityType="Self.tblRestaurant" />
+          <EntitySet Name="tblReviews" EntityType="Self.tblReview" />
+          <EntitySet Name="tblRiders" EntityType="Self.tblRider" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+          <AssociationSet Name="FK_Deliveries_Orders" Association="Self.FK_Deliveries_Orders">
+            <End Role="tblOrders" EntitySet="tblOrders" />
+            <End Role="tblDeliveries" EntitySet="tblDeliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Food_Restaurant" Association="Self.FK_Food_Restaurant">
+            <End Role="tblRestaurants" EntitySet="tblRestaurants" />
+            <End Role="tblFood" EntitySet="tblFoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Food" Association="Self.FK_Inventory_Food">
+            <End Role="tblFood" EntitySet="tblFoods" />
+            <End Role="tblInventory" EntitySet="tblInventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderFood_Food" Association="Self.FK_OrderFood_Food">
+            <End Role="tblFood" EntitySet="tblFoods" />
+            <End Role="tblOrderFood" EntitySet="tblOrderFoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Food" Association="Self.FK_Reviews_Food">
+            <End Role="tblFood" EntitySet="tblFoods" />
+            <End Role="tblReviews" EntitySet="tblReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderFood_Orders" Association="Self.FK_OrderFood_Orders">
+            <End Role="tblOrders" EntitySet="tblOrders" />
+            <End Role="tblOrderFood" EntitySet="tblOrderFoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Riders" Association="Self.FK_Orders_Riders">
+            <End Role="tblRiders" EntitySet="tblRiders" />
+            <End Role="tblOrders" EntitySet="tblOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblOrders" EntitySet="tblOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_Orders" Association="Self.FK_Payments_Orders">
+            <End Role="tblOrders" EntitySet="tblOrders" />
+            <End Role="tblPayments" EntitySet="tblPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_Method" Association="Self.FK_Payments_Method">
+            <End Role="tblPaymentMethodTypes" EntitySet="tblPaymentMethodTypes" />
+            <End Role="tblPayments" EntitySet="tblPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_Users" Association="Self.FK_Payments_Users">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblPayments" EntitySet="tblPayments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Users" Association="Self.FK_Reviews_Users">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblReviews" EntitySet="tblReviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbfoodpandaModelStoreContainer" CdmEntityContainer="dbfoodpandaEntities">
+          <EntitySetMapping Name="tblDeliveries">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblDelivery">
+              <MappingFragment StoreEntitySet="tblDeliveries">
+                <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="DeliveryStatus" ColumnName="DeliveryStatus" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFoods">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblFood">
+              <MappingFragment StoreEntitySet="tblFood">
+                <ScalarProperty Name="FoodID" ColumnName="FoodID" />
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+                <ScalarProperty Name="FoodName" ColumnName="FoodName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblInventories">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblInventory">
+              <MappingFragment StoreEntitySet="tblInventory">
+                <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
+                <ScalarProperty Name="FoodID" ColumnName="FoodID" />
+                <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrderFoods">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblOrderFood">
+              <MappingFragment StoreEntitySet="tblOrderFood">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="FoodID" ColumnName="FoodID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrders">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblOrder">
+              <MappingFragment StoreEntitySet="tblOrders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RiderID" ColumnName="RiderID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPaymentMethodTypes">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblPaymentMethodType">
+              <MappingFragment StoreEntitySet="tblPaymentMethodTypes">
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+                <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPayments">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblPayment">
+              <MappingFragment StoreEntitySet="tblPayments">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRestaurants">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblRestaurant">
+              <MappingFragment StoreEntitySet="tblRestaurants">
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblReviews">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblReview">
+              <MappingFragment StoreEntitySet="tblReviews">
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FoodID" ColumnName="FoodID" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRiders">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblRider">
+              <MappingFragment StoreEntitySet="tblRiders">
+                <ScalarProperty Name="RiderID" ColumnName="RiderID" />
+                <ScalarProperty Name="RiderName" ColumnName="RiderName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="dbfoodpandaModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserNIC" ColumnName="UserNIC" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="Address_HouseNo" ColumnName="Address_HouseNo" />
+                <ScalarProperty Name="Address_City" ColumnName="Address_City" />
+                <ScalarProperty Name="Address_Status" ColumnName="Address_Status" />
+                <ScalarProperty Name="Address_PostalCode" ColumnName="Address_PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

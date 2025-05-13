@@ -1,0 +1,61 @@
+﻿@model foodPandaDBMS.Models.tblUser
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <!-- 🔁 Header with Signup button -->
+                <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #e74c3c; color: white;">
+                    <h4 class="mb-0">LOGIN</h4>
+                    <a href="@Url.Action("Create", "tblUsers")" class="btn btn-sm text-white" style="background-color: #c0392b;">
+                        <i class="fas fa-user-plus mr-1"></i> Signup
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    @using (Html.BeginForm("Login", "tblUsers", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserEmail)
+                            @Html.TextBoxFor(model => model.UserEmail, new { @class = "form-control", placeholder = "Enter Email" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserPassword)
+                            @Html.PasswordFor(model => model.UserPassword, new { @class = "form-control", placeholder = "Enter Password" })
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" name="loginType" value="user" class="btn" style="background-color: #e74c3c; color: white; width: 100%; py-2">
+                                <i class="fas fa-user mr-2"></i> Login
+                            </button>
+                        </div>
+
+                        <div class="text-center mb-2">
+                            <span class="text-muted font-weight-bold">OR</span>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" name="loginType" value="admin" class="btn" style="background-color: #e74c3c; color: white; width: 100%; py-2">
+                                <i class="fas fa-user-shield mr-2"></i> ADMIN LOGIN
+                            </button>
+                        </div>
+
+                        <!-- Error Message Handling -->
+                        if (ViewBag.Error != null)
+                        {
+                            <div class="alert alert-danger text-center">@ViewBag.Error</div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

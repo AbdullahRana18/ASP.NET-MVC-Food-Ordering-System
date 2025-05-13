@@ -1,0 +1,81 @@
+﻿@model IEnumerable<foodPandaDBMS.Models.tblFood>
+
+@{
+    ViewBag.Title = "Food Items";
+}
+
+<!-- Bootstrap Icons CSS (make sure this is in your layout file's <head> section too) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<h2 class="text-center my-4">Explore Our Delicious Food</h2>
+
+<div class="row">
+    @foreach (var food in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-lg rounded-lg food-card" style="width: 100%;">
+
+                <!-- Image with Hover Effect and Shadow -->
+                <div class="image-container" style="position: relative; overflow: hidden;">
+                    <img src="@Url.Content("~/" + food.ImagePath)" alt="@food.FoodName"
+                         class="card-img-top hover-image"
+                         style="height: 250px; object-fit: cover; width: 100%; border-bottom: 2px solid #ddd;" />
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body text-center" style="padding: 1.25rem;">
+                    <h5 class="card-title" style="font-size: 1.3rem; margin-bottom: 0.75rem; font-weight: bold;">@food.FoodName</h5>
+                    <p class="card-text" style="font-size: 1rem; color: #666;">
+                        A delightful dish made with fresh ingredients. Perfect for a quick bite or a hearty meal.
+                    </p>
+                    <p class="card-text font-weight-bold" style="font-size: 1.2rem; color: #e74c3c;">@food.Price.ToString("N0") Rs</p>
+
+                    <!-- Buttons with Hover Effect -->
+                    <div style="display: flex; justify-content: space-between; gap: 10px;">
+                        <a href="@Url.Action("Order", "Foods", new { id = food.FoodID })"
+                           class="btn btn-danger w-100 hover-button">
+                            <i class="bi bi-bag-fill"></i> Order Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Custom CSS for Hover Effects and Styling -->
+<style>
+    .hover-image {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .hover-image:hover {
+            transform: scale(1.05); /* Slight zoom */
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15); /* Shadow effect */
+        }
+
+    .food-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .hover-button:hover {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .card-title {
+        color: #2c3e50;
+    }
+
+    .card-body {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+    }
+</style>

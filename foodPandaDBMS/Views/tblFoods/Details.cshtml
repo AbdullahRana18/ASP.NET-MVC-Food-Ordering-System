@@ -1,0 +1,66 @@
+﻿@model foodPandaDBMS.Models.tblFood
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-lg" style="background-color: #f9f9f9;">
+        <div class="card-header text-white text-center" style="background-color: #e74c3c;">
+            <h2 class="mb-0">Food Details</h2>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4 font-weight-bold" style="color: #2c3e50;">
+                    @Html.DisplayNameFor(model => model.FoodName)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.FoodName)
+                </dd>
+
+                <dt class="col-sm-4 font-weight-bold" style="color: #2c3e50;">
+                    @Html.DisplayNameFor(model => model.Category)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Category)
+                </dd>
+
+                <dt class="col-sm-4 font-weight-bold" style="color: #2c3e50;">
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Price) Rs
+                </dd>
+
+                <dt class="col-sm-4 font-weight-bold" style="color: #2c3e50;">
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.ImagePath)
+                    <br />
+                    <img src="@Url.Content(Model.ImagePath)" alt="Food Image" class="img-thumbnail mt-2" style="max-height:200px;" />
+                </dd>
+
+                <dt class="col-sm-4 font-weight-bold" style="color: #2c3e50;">
+                    @Html.DisplayNameFor(model => model.tblRestaurant.RestaurantName)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.tblRestaurant.RestaurantName)
+                </dd>
+            </dl>
+
+            <div class="mt-4 text-center">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.FoodID }, new { @class = "btn hover-button text-white mr-2", style = "background-color: #e74c3c;" })
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hover button style -->
+<style>
+    .hover-button:hover {
+        background-color: #c0392b !important;
+        color: white !important;
+    }
+</style>

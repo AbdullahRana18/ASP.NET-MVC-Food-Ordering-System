@@ -1,0 +1,43 @@
+﻿@model foodPandaDBMS.Models.OrderViewModel
+
+@{
+    ViewBag.Title = "Receipt";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-lg" style="background-color: #f9f9f9;">
+        <!-- 🔴 Changed from green to red -->
+        <div class="card-header text-center" style="background-color: #e74c3c; color: white;">
+            <h4 class="mb-0">Order Receipt</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4" style="color: #e74c3c;">Food Name:</dt>
+                <dd class="col-sm-8" style="color: #2c3e50;">@Model.FoodName</dd>
+
+                <dt class="col-sm-4" style="color: #e74c3c;">Food Price:</dt>
+                <dd class="col-sm-8" style="color: #2c3e50;">@Model.Price Rs</dd>
+
+                <dt class="col-sm-4" style="color: #e74c3c;">Delivery Charges:</dt>
+                <dd class="col-sm-8" style="color: #2c3e50;">200 Rs</dd>
+
+                <dt class="col-sm-4" style="color: #e74c3c;">Total Amount:</dt>
+                <dd class="col-sm-8 font-weight-bold" style="color: #27ae60;">@(@Model.Price + 200) Rs</dd>
+            </dl>
+
+            <div class="text-center mt-4">
+                <a href="@Url.Action("Index", "Foods")" class="btn hover-button" style="background-color: #e74c3c; color: white;">
+                    <i class="fas fa-arrow-left"></i> Back to Foods
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hover Button Style -->
+<style>
+    .hover-button:hover {
+        background-color: #c0392b !important;
+        color: white !important;
+    }
+</style>

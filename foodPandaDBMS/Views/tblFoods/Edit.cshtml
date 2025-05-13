@@ -1,0 +1,77 @@
+﻿@model foodPandaDBMS.Models.tblFood
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-lg" style="background-color: #f9f9f9;">
+        <div class="card-header text-white text-center" style="background-color: #e74c3c;">
+            <h2 class="mb-0">Edit Food Details</h2>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.FoodID)
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <!-- Restaurant Dropdown -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RestaurantID, "Restaurant", new { @class = "font-weight-bold" })
+                        @Html.DropDownList("RestaurantID", null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.RestaurantID, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Food Name -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FoodName, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.FoodName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter food name" } })
+                        @Html.ValidationMessageFor(model => model.FoodName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Category -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Category, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. Pizza, Burger" } })
+                        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Price -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. 299.99" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Image Path -->
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ImagePath, new { @class = "font-weight-bold" })
+                        @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter image path or URL" } })
+                        @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="form-group text-center">
+                        <input type="submit" value="Save Changes" class="btn hover-button text-white px-4 py-2 font-weight-bold" style="background-color: #e74c3c;" />
+                    </div>
+                </div>
+            }
+
+            <!-- Back to List Button -->
+            <div class="text-center mt-3">
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hover effect for save button -->
+<style>
+    .hover-button:hover {
+        background-color: #c0392b !important;
+        color: white !important;
+    }
+</style>

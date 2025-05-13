@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header text-center text-white" style="background-color: #e74c3c;">
+                    <h3 class="mb-0">Admin Dashboard</h3>
+                </div>
+                <div class="card-body text-center">
+                    <p class="mb-4">Welcome, Admin! Select an action below:</p>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <a href="@Url.Action("Index", "tblUsers")" class="btn btn-danger btn-block py-2">
+                                <i class="fas fa-users"></i> Manage Users
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="@Url.Action("Index", "tblFoods")" class="btn btn-danger btn-block py-2">
+                                <i class="fas fa-utensils"></i> Manage Foods
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="@Url.Action("Logout", "tblUsers")" class="btn btn-secondary mt-3">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model foodPandaDBMS.Models.OrderViewModel
+
+@{
+    ViewBag.Title = "Order";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4" style="color: #2c3e50;">Order Details</h2>
+
+    <div class="card shadow-lg rounded-lg" style="background-color: #f9f9f9;">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3" style="color: #e74c3c;">Food Name:</dt>
+                <dd class="col-sm-9" style="color: #2c3e50;">@Model.FoodName</dd>
+
+                <dt class="col-sm-3" style="color: #e74c3c;">Price:</dt>
+                <dd class="col-sm-9" style="color: #2c3e50;">@Model.Price Rs</dd>
+
+                <dt class="col-sm-3" style="color: #e74c3c;">Delivery Charges:</dt>
+                <dd class="col-sm-9" style="color: #2c3e50;">200 Rs</dd>
+
+                <dt class="col-sm-3" style="color: #e74c3c;">Total:</dt>
+                <dd class="col-sm-9 font-weight-bold" style="color: #27ae60;">@(@Model.Price + 200) Rs</dd>
+            </dl>
+
+            @using (Html.BeginForm("Order", "Foods", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(model => model.FoodName)
+                @Html.HiddenFor(model => model.Price)
+                <input type="hidden" name="DeliveryCharges" value="200" />
+
+                <button type="submit" class="btn w-100 hover-button" style="background-color: #e74c3c; color: white;">
+                    <i class="fas fa-file-invoice"></i> Generate Receipt
+                </button>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Custom Hover Button Style -->
+<style>
+    .hover-button:hover {
+        background-color: #c0392b !important;
+        color: white !important;
+    }
+</style>

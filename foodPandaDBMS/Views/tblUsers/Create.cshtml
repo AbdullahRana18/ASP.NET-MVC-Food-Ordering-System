@@ -1,0 +1,100 @@
+﻿@model foodPandaDBMS.Models.tblUser
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-0 pt-0">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header text-white text-center" style="background-color: #e74c3c;">
+                    <h4 class="mb-0">SIGNUP</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserName)
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Full Name" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserEmail)
+                            @Html.TextBoxFor(model => model.UserEmail, new { @class = "form-control", placeholder = "Email Address" })
+                            @Html.ValidationMessageFor(model => model.UserEmail, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserNIC)
+                            @Html.TextBoxFor(model => model.UserNIC, new { @class = "form-control", placeholder = "NIC (e.g. 35201XXXXXXX)" })
+                            @Html.ValidationMessageFor(model => model.UserNIC, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UserPassword)
+                            @Html.PasswordFor(model => model.UserPassword, new { @class = "form-control", placeholder = "Password (min 8 chars)" })
+                            @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address_City)
+                            @Html.TextBoxFor(model => model.Address_City, new { @class = "form-control", placeholder = "City Name" })
+                            @Html.ValidationMessageFor(model => model.Address_City, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address_HouseNo)
+                            @Html.TextBoxFor(model => model.Address_HouseNo, new { @class = "form-control", placeholder = "House Number" })
+                            @Html.ValidationMessageFor(model => model.Address_HouseNo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address_Status)
+                            @Html.TextBoxFor(model => model.Address_Status, new { @class = "form-control", placeholder = "Status (e.g. Active)" })
+                            @Html.ValidationMessageFor(model => model.Address_Status, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address_PostalCode)
+                            @Html.TextBoxFor(model => model.Address_PostalCode, new { @class = "form-control", placeholder = "Postal Code" })
+                            @Html.ValidationMessageFor(model => model.Address_PostalCode, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group text-center mt-4">
+                            <button type="submit" class="btn red-button px-5">
+                                <i class="fa fa-check"></i> SIGNUP
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Red Button Style -->
+<style>
+    .red-button {
+        background-color: #e74c3c;
+        color: white;
+        font-weight: bold;
+        border: none;
+    }
+
+        .red-button:hover {
+            background-color: #c0392b;
+            color: white;
+        }
+</style>
+
+<!-- Scripts -->
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
