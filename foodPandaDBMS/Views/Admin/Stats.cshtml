@@ -1,0 +1,53 @@
+﻿@model foodPandaDBMS.Models.AdminStatsViewModel
+
+@{
+    ViewBag.Title = "Platform Stats";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center text-danger mb-4">Platform Summary</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-left-danger">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="fas fa-users text-danger"></i> Total Users</h5>
+                    <h3>@Model.TotalUsers</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-left-warning">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="fas fa-utensils text-warning"></i> Total Foods</h5>
+                    <h3>@Model.TotalFoods</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-left-success">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><i class="fas fa-money-bill text-success"></i> Total Sales</h5>
+                    <h3>@Model.TotalSales Rs</h3>
+                </div>
+            </div>
+        </div>
+        <a href="@Url.Action("Dashboard", "tblUsers")"
+           class="btn red-button btn-sm font-weight-bold mx-1">
+            <i class="fas fa-arrow-left me-2"></i> Back
+        </a>
+    </div>
+</div>
+
+<style>
+    .red-button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+    }
+
+        .red-button:hover {
+            background-color: #c0392b !important;
+            color: white !important;
+        }
+</style>

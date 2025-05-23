@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace foodPandaDBMS.Models
 {
@@ -10,8 +7,14 @@ namespace foodPandaDBMS.Models
         public int FoodID { get; set; }
         public string FoodName { get; set; }
         public decimal Price { get; set; }
+        public int Quantity { get; set; }
         public decimal DeliveryCharges { get; set; } = 200;
-        public decimal Total => Price + DeliveryCharges;
+        public decimal Total { get; set; }
 
+        // Required for saving order
+        public int UserID { get; set; }
+
+        // Payment Method (ID: 1 = Cash on Delivery, 2 = Card Payment)
+        public int PaymentMethodID { get; set; } = 1;
     }
 }

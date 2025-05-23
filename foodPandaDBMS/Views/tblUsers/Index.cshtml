@@ -46,10 +46,17 @@
                                 </div>
                             </td>
                         </tr>
+
                     }
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="text-center mt-3">
+        <a href="@Url.Action("Dashboard", "tblUsers")"
+           class="btn red-button btn-sm font-weight-bold mx-1">
+            <i class="fas fa-arrow-left me-2"></i> Back
+        </a>
     </div>
 </div>
 
@@ -70,6 +77,7 @@
         min-width: 75px;
         text-align: center;
     }
+
 
         .btn-danger:hover {
             background-color: #c0392b;
@@ -129,5 +137,15 @@
 
         .gap-2 > *:last-child {
             margin-right: 0;
+        }
+        .red-button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+    }
+
+        .red-button:hover {
+            background-color: #c0392b !important;
+            color: white !important;
         }
 </style>

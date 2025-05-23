@@ -1,12 +1,9 @@
 ﻿@model foodPandaDBMS.Models.OrderViewModel
-
 @{
     ViewBag.Title = "Receipt";
 }
-
 <div class="container mt-5">
     <div class="card shadow-lg rounded-lg" style="background-color: #f9f9f9;">
-        <!-- 🔴 Changed from green to red -->
         <div class="card-header text-center" style="background-color: #e74c3c; color: white;">
             <h4 class="mb-0">Order Receipt</h4>
         </div>
@@ -14,17 +11,23 @@
             <dl class="row">
                 <dt class="col-sm-4" style="color: #e74c3c;">Food Name:</dt>
                 <dd class="col-sm-8" style="color: #2c3e50;">@Model.FoodName</dd>
-
-                <dt class="col-sm-4" style="color: #e74c3c;">Food Price:</dt>
+                <dt class="col-sm-4" style="color: #e74c3c;">Food Price (each):</dt>
                 <dd class="col-sm-8" style="color: #2c3e50;">@Model.Price Rs</dd>
-
+                <dt class="col-sm-4" style="color: #e74c3c;">Quantity:</dt>
+                <dd class="col-sm-8" style="color: #2c3e50;">@Model.Quantity</dd>
+                <dt class="col-sm-4" style="color: #e74c3c;">Subtotal:</dt>
+                <dd class="col-sm-8" style="color: #2c3e50;">
+                    @(Model.Price * Model.Quantity) Rs
+                </dd>
                 <dt class="col-sm-4" style="color: #e74c3c;">Delivery Charges:</dt>
-                <dd class="col-sm-8" style="color: #2c3e50;">200 Rs</dd>
-
-                <dt class="col-sm-4" style="color: #e74c3c;">Total Amount:</dt>
-                <dd class="col-sm-8 font-weight-bold" style="color: #27ae60;">@(@Model.Price + 200) Rs</dd>
+                <dd class="col-sm-8" style="color: #2c3e50;">
+                    @Model.DeliveryCharges Rs
+                </dd>
+                <dt class="col-sm-4 font-weight-bold" style="color: #e74c3c;">Total Amount:</dt>
+                <dd class="col-sm-8 font-weight-bold" style="color: #27ae60;">
+                    @Model.Total Rs
+                </dd>
             </dl>
-
             <div class="text-center mt-4">
                 <a href="@Url.Action("Index", "Foods")" class="btn hover-button" style="background-color: #e74c3c; color: white;">
                     <i class="fas fa-arrow-left"></i> Back to Foods
@@ -33,7 +36,6 @@
         </div>
     </div>
 </div>
-
 <!-- Hover Button Style -->
 <style>
     .hover-button:hover {

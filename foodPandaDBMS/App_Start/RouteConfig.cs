@@ -13,18 +13,11 @@ namespace foodPandaDBMS
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Custom route for Foods controller (optional, to make sure it's easy to access)
-            routes.MapRoute(
-                name: "Foods",
-                url: "Foods/{action}/{id}",
-                defaults: new { controller = "Foods", action = "Index", id = UrlParameter.Optional }
-            );
-
-            // Default route
+            // Default route: Open Login page from tblUsers controller
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "tblUsers", action = "Login", id = UrlParameter.Optional }
             );
         }
     }

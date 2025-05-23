@@ -49,7 +49,7 @@ namespace foodPandaDBMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Handle image upload
+                // Handle image upload to root /images folder
                 if (ImageFile != null && ImageFile.ContentLength > 0)
                 {
                     string fileName = Path.GetFileName(ImageFile.FileName);

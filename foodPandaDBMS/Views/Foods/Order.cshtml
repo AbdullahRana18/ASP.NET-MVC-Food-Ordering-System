@@ -1,35 +1,37 @@
 ﻿@model foodPandaDBMS.Models.OrderViewModel
-
 @{
     ViewBag.Title = "Order";
 }
-
 <div class="container mt-5">
     <h2 class="text-center mb-4" style="color: #2c3e50;">Order Details</h2>
-
     <div class="card shadow-lg rounded-lg" style="background-color: #f9f9f9;">
         <div class="card-body">
             <dl class="row">
                 <dt class="col-sm-3" style="color: #e74c3c;">Food Name:</dt>
-                <dd class="col-sm-9" style="color: #2c3e50;">@Model.FoodName</dd>
-
+                <dd class="col-sm-9">@Model.FoodName</dd>
                 <dt class="col-sm-3" style="color: #e74c3c;">Price:</dt>
-                <dd class="col-sm-9" style="color: #2c3e50;">@Model.Price Rs</dd>
-
+                <dd class="col-sm-9">@Model.Price Rs</dd>
+                <dt class="col-sm-3" style="color: #e74c3c;">Quantity:</dt>
+                <dd class="col-sm-9">
+                    <input type="number" id="Quantity" name="Quantity" value="@Model.Quantity" min="1" class="form-control w-25" onchange="calculateTotal()" />
+                </dd>
                 <dt class="col-sm-3" style="color: #e74c3c;">Delivery Charges:</dt>
-                <dd class="col-sm-9" style="color: #2c3e50;">200 Rs</dd>
-
+                <dd class="col-sm-9">@Model.DeliveryCharges Rs</dd>
                 <dt class="col-sm-3" style="color: #e74c3c;">Total:</dt>
-                <dd class="col-sm-9 font-weight-bold" style="color: #27ae60;">@(@Model.Price + 200) Rs</dd>
+                <dd class="col-sm-9 font-weight-bold" style="color: #27ae60;" id="TotalDisplay">@Model.Total Rs</dd>
             </dl>
-
             @using (Html.BeginForm("Order", "Foods", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
 
-                @Html.HiddenFor(model => model.FoodName)
-                @Html.HiddenFor(model => model.Price)
-                <input type="hidden" name="DeliveryCharges" value="200" />
+                @Html.HiddenFor(m => m.FoodID)
+                @Html.HiddenFor(m => m.FoodName)
+                @Html.HiddenFor(m => m.Price)
+                @Html.HiddenFor(m => m.DeliveryCharges)
+                <input type="hidden" name="Total" id="Total" value="@Model.Total" />
+                @Html.Hidden("PaymentMethodID", "1")
+
+                <input type="hidden" name="Quantity" id="QuantityHidden" value="@Model.Quantity" />
 
                 <button type="submit" class="btn w-100 hover-button" style="background-color: #e74c3c; color: white;">
                     <i class="fas fa-file-invoice"></i> Generate Receipt
@@ -38,8 +40,21 @@
         </div>
     </div>
 </div>
+<script>
+    function calculateTotal() {
+        var price = parseFloat("@Model.Price");
+        var delivery = parseFloat("@Model.DeliveryCharges");
+        var quantity = parseInt(document.getElementById("Quantity").value) || 1;
+        var total = (price * quantity) + delivery;
 
-<!-- Custom Hover Button Style -->
+        document.getElementById("TotalDisplay").innerText = total + " Rs";
+        document.getElementById("Total").value = total;
+        document.getElementById("QuantityHidden").value = quantity;
+    }
+
+    // Initial call to show correct total
+    calculateTotal();
+</script>
 <style>
     .hover-button:hover {
         background-color: #c0392b !important;
