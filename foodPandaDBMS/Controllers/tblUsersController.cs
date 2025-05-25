@@ -37,7 +37,7 @@ namespace foodPandaDBMS.Controllers
             return View();
         }
 
-        // POST: tblUsers/Create (User Signup)
+        // POST: tblUsers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserID,UserName,UserEmail,UserNIC,UserPassword,Address_HouseNo,Address_City,Address_Status,Address_PostalCode")] tblUser tblUser)
@@ -47,11 +47,9 @@ namespace foodPandaDBMS.Controllers
                 db.tblUsers.Add(tblUser);
                 db.SaveChanges();
 
-                // Set session for user
                 Session["UserID"] = tblUser.UserID;
                 Session["UserName"] = tblUser.UserName;
 
-                // Redirect to Foods list after signup
                 return RedirectToAction("Index", "Foods");
             }
 
@@ -80,7 +78,9 @@ namespace foodPandaDBMS.Controllers
             {
                 db.Entry(tblUser).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                TempData["Success"] = "🎉 Your profile has been updated successfully!";
+                return RedirectToAction("Index", "Foods");
             }
             return View(tblUser);
         }
@@ -106,7 +106,10 @@ namespace foodPandaDBMS.Controllers
             tblUser tblUser = db.tblUsers.Find(id);
             db.tblUsers.Remove(tblUser);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            TempData["Success"] = "🗑️ Your account has been deleted successfully. We hope to see you again!";
+            Session.Clear();
+            return RedirectToAction("Login", "tblUsers");
         }
 
         // GET: tblUsers/Login
@@ -122,11 +125,10 @@ namespace foodPandaDBMS.Controllers
         {
             if (loginType == "admin")
             {
-                // Hardcoded admin check
                 if (user.UserEmail == "admin" && user.UserPassword == "123")
                 {
                     Session["Admin"] = "true";
-                    return RedirectToAction("Dashboard"); // Redirect to admin dashboard
+                    return RedirectToAction("Dashboard");
                 }
                 else
                 {
@@ -136,7 +138,6 @@ namespace foodPandaDBMS.Controllers
             }
             else
             {
-                // Normal user login from database
                 var loginUser = db.tblUsers.FirstOrDefault(x => x.UserEmail == user.UserEmail && x.UserPassword == user.UserPassword);
 
                 if (loginUser != null)
@@ -153,7 +154,6 @@ namespace foodPandaDBMS.Controllers
             }
         }
 
-        // GET: Admin Dashboard
         public ActionResult Dashboard()
         {
             if (Session["Admin"] == null)
@@ -162,7 +162,6 @@ namespace foodPandaDBMS.Controllers
             return View();
         }
 
-        // Logout
         public ActionResult Logout()
         {
             Session.Clear();

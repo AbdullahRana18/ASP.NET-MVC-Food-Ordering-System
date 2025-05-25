@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - FoodPanda</title>
 
     <!-- Bootstrap 4 CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
@@ -13,17 +13,42 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <!-- Modernizr -->
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f8d7da;
+        }
+
+        footer {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .nav-link, .dropdown-item {
+            font-size: 0.95rem;
+        }
+    </style>
 </head>
 <body>
     @{
-        var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
-        var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
+        // Avoid C# 6 null-conditional operator for compatibility
+        var rd = ViewContext.RouteData.Values;
+        var currentAction = rd["Action"] != null ? rd["Action"].ToString() : String.Empty;
+        var currentController = rd["Controller"] != null ? rd["Controller"].ToString() : String.Empty;
         bool isSignupPage = currentAction == "Create" && currentController == "tblUsers";
     }
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#">FoodPanda</a>
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">🍔 FoodPanda</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,7 +57,6 @@
                 <ul class="navbar-nav ml-auto">
                     @if (Session["UserID"] == null && Session["Admin"] == null)
                     {
-                        // User NOT logged in
                         if (isSignupPage)
                         {
                             <li class="nav-item text-white d-flex align-items-center mr-2">
@@ -51,13 +75,38 @@
                                     <i class="fas fa-sign-in-alt"></i> Login
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Create", "tblUsers")">
+                                    <i class="fas fa-user-plus"></i> Signup
+                                </a>
+                            </li>
                         }
                     }
-                    else
+                    else if (Session["UserID"] != null)
                     {
-                        // User OR Admin is logged in
+                        int userId = Convert.ToInt32(Session["UserID"]);
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="settingsDropdown" role="button" data-toggle="dropdown">
+                                <i class="fas fa-user-circle"></i> @Session["UserName"]
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow">
+                                <a class="dropdown-item" href="@Url.Action("Edit", "tblUsers", new { id = userId })">
+                                    <i class="fas fa-user-edit text-primary"></i> Update Account
+                                </a>
+                                <a class="dropdown-item" href="@Url.Action("Delete", "tblUsers", new { id = userId })">
+                                    <i class="fas fa-user-times text-danger"></i> Delete Account
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="@Url.Action("Logout", "tblUsers")">
+                                    <i class="fas fa-sign-out-alt text-dark"></i> Logout
+                                </a>
+                            </div>
+                        </li>
+                    }
+                    else if (Session["Admin"] != null)
+                    {
                         <li class="nav-item">
-                            <span class="nav-link text-light">Welcome, @Session["UserName"]</span>
+                            <span class="nav-link text-light"><i class="fas fa-user-shield"></i> Welcome, Admin</span>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Logout", "tblUsers")">
@@ -74,7 +123,7 @@
         @RenderBody()
         <hr />
         <footer class="text-center mb-3">
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - FoodPanda | Powered by ASP.NET MVC</p>
         </footer>
     </div>
 

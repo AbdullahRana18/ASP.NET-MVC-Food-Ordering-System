@@ -6,10 +6,6 @@
 
 <h2 class="text-center my-4">User List</h2>
 
-<p class="text-center">
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success px-4" })
-</p>
-
 <div class="container mt-5">
     <div class="card shadow-lg rounded-lg">
         <div class="card-header text-white" style="background-color: #e74c3c;">
@@ -19,12 +15,8 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.UserName)</th>
-                        <th>@Html.DisplayNameFor(model => model.UserEmail)</th>
-                        <th>@Html.DisplayNameFor(model => model.UserNIC)</th>
-                        <th>@Html.DisplayNameFor(model => model.UserPassword)</th>
-                        <th>@Html.DisplayNameFor(model => model.Address_HouseNo)</th>
-                        <th>@Html.DisplayNameFor(model => model.Address_City)</th>
+                        <th>User Name</th>
+                        <th>Password</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -33,20 +25,11 @@
                     {
                         <tr>
                             <td>@Html.DisplayFor(modelItem => item.UserName)</td>
-                            <td style="width: 200px;">@Html.DisplayFor(modelItem => item.UserEmail)</td>
-                            <td>@Html.DisplayFor(modelItem => item.UserNIC)</td>
-                            <td style="width: 120px;">@Html.DisplayFor(modelItem => item.UserPassword)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Address_HouseNo)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Address_City)</td>
+                            <td>@Html.DisplayFor(modelItem => item.UserPassword)</td>
                             <td>
-                                <div class="d-flex justify-content-center gap-2">
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.UserID }, new { @class = "btn btn-danger btn-sm" })
-                                    @Html.ActionLink("Details", "Details", new { id = item.UserID }, new { @class = "btn btn-danger btn-sm" })
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.UserID }, new { @class = "btn btn-danger btn-sm" })
-                                </div>
+                                @Html.ActionLink("View", "Details", new { id = item.UserID }, new { @class = "btn btn-danger btn-sm" })
                             </td>
                         </tr>
-
                     }
                 </tbody>
             </table>
@@ -60,17 +43,7 @@
     </div>
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-<!-- Custom CSS for Styling -->
 <style>
-    .form-group label {
-        color: #2c3e50;
-        font-weight: bold;
-    }
-
     .btn-danger {
         background-color: #e74c3c;
         color: white;
@@ -78,24 +51,20 @@
         text-align: center;
     }
 
-
         .btn-danger:hover {
             background-color: #c0392b;
         }
 
-    .btn-success {
-        background-color: #2ecc71;
+    .red-button {
+        background-color: #e74c3c;
         color: white;
+        border: none;
     }
 
-        .btn-success:hover {
-            background-color: #27ae60;
+        .red-button:hover {
+            background-color: #c0392b !important;
+            color: white !important;
         }
-
-    .btn-sm {
-        padding: 6px 12px;
-        font-size: 0.875rem;
-    }
 
     .container {
         max-width: 1000px;
@@ -122,30 +91,4 @@
         font-weight: bold;
         color: #2c3e50;
     }
-
-    .d-flex {
-        display: flex;
-    }
-
-    .justify-content-center {
-        justify-content: center;
-    }
-
-    .gap-2 > * {
-        margin-right: 8px;
-    }
-
-        .gap-2 > *:last-child {
-            margin-right: 0;
-        }
-        .red-button {
-        background-color: #e74c3c;
-        color: white;
-        border: none;
-    }
-
-        .red-button:hover {
-            background-color: #c0392b !important;
-            color: white !important;
-        }
 </style>
